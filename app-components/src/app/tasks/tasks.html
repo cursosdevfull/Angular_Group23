@@ -1,0 +1,9 @@
+<p>tasks works!</p>
+<input type="text" (input)="captureTask($event)" />
+<button (click)="addTask()">Add Task</button>
+<ul>
+  <!-- <li *ngFor="let item of list">{{item}}</li> -->
+  @for(item of list; track item) {
+  <li>{{item}}</li>
+  }
+</ul>

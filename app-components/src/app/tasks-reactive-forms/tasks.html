@@ -1,0 +1,10 @@
+<p>tasks works!</p>
+<input type="text" [formControl]="taskName" />
+<button (click)="addTask()">Add Task</button>
+<p><strong>TaskName: </strong>{{taskName.value}}</p>
+<ul>
+  <!-- <li *ngFor="let item of list">{{item}}</li> -->
+  @for(item of list; track item) {
+  <li>{{item}}</li>
+  }
+</ul>

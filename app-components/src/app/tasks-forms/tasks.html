@@ -1,0 +1,11 @@
+<p>tasks works!</p>
+<!--<input type="text" [ngModel]="taskName" (ngModelChange)="taskName=$event" />-->
+<input type="text" [(ngModel)]="taskName" />
+<button (click)="addTask()">Add Task</button>
+<p><strong>TaskName: </strong>{{taskName}}</p>
+<ul>
+  <!-- <li *ngFor="let item of list">{{item}}</li> -->
+  @for(item of list; track item) {
+  <li>{{item}}</li>
+  }
+</ul>
