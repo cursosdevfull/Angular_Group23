@@ -1,0 +1,51 @@
+<button (click)="loadStarShips()">Load starships</button>
+<app-loader [loading]="loading()"></app-loader>
+
+<div class="container">
+  <div class="row">
+    <div class="col col-6">
+      <table class="table table-striped">
+        <tr>
+          <th>Name</th>
+          <th>Model</th>
+          <!--<th>Manufacturer</th>
+        <th>Cost</th>
+        <th>Class</th>-->
+          <th>Films</th>
+        </tr>
+        @for(ship of starShips(); track ship){
+        <tr>
+          <td>{{ship.name}}</td>
+          <td>{{ship.model}}</td>
+          <!--<td>{{ship.manufacturer}}</td>
+        <td>{{ship.cost_in_credits}}</td>
+        <td>{{ship.starship_class}}</td>-->
+          <td>
+            <ul>
+              @for(film of ship.films; track film) {
+              <li (click)="showFilm(film)">{{film}}</li>
+              }
+            </ul>
+          </td>
+        </tr>
+        }
+      </table>
+    </div>
+    <div class="col col-6">
+      @let info = infoFilm(); @if(info) {
+      <table class="col-6 table table-striped">
+        <tr>
+          <th>Title</th>
+          <th>Crawl</th>
+          <th>Director</th>
+        </tr>
+        <tr>
+          <td>{{info.title}}</td>
+          <td>{{info.opening_crawl}}</td>
+          <td>{{info.director}}</td>
+        </tr>
+      </table>
+      }
+    </div>
+  </div>
+</div>

@@ -1,0 +1,84 @@
+.preloader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 300px;
+  padding: 2rem;
+}
+
+.spinner {
+  position: relative;
+  width: 120px;
+  height: 120px;
+}
+
+.center-dot {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 16px;
+  height: 16px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 50%;
+  box-shadow: 0 0 20px rgba(102, 126, 234, 0.6);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.orbit {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border-radius: 50%;
+  border: 2px solid transparent;
+}
+
+.orbit-1 {
+  width: 120px;
+  height: 120px;
+  margin: -60px 0 0 -60px;
+  border-top-color: #667eea;
+  animation: rotate 1.5s linear infinite;
+}
+
+.orbit-2 {
+  width: 90px;
+  height: 90px;
+  margin: -45px 0 0 -45px;
+  border-right-color: #764ba2;
+  animation: rotate 2s linear infinite reverse;
+}
+
+.orbit-3 {
+  width: 60px;
+  height: 60px;
+  margin: -30px 0 0 -30px;
+  border-bottom-color: #f093fb;
+  animation: rotate 2.5s linear infinite;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.3);
+    opacity: 0.7;
+  }
+}
+
+/* Alternativa: Si quieres ocultar el preloader cuando haya contenido */
+.preloader.hidden {
+  display: none;
+}
