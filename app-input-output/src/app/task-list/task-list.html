@@ -1,0 +1,18 @@
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Task name</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    @for(task of list; track task;let idx = $index) {
+    <tr>
+      <td>{{task}}</td>
+      <td>
+        <button type="button" class="btn btn-danger" (click)="delete(idx)">Delete</button>
+      </td>
+    </tr>
+    }
+  </tbody>
+</table>

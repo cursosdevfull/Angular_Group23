@@ -1,0 +1,13 @@
+<div class="container">
+  <div class="row">
+    <h1>Tasks</h1>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <app-task-form (onNewTask)="save($event)"></app-task-form>
+    </div>
+    <div class="col-6">
+      <app-task-list [list]="tasks" (onDelete)="delete($event)"></app-task-list>
+    </div>
+  </div>
+</div>
