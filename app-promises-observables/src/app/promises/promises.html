@@ -1,0 +1,42 @@
+<div class="container">
+  <h1>Example with Promises</h1>
+  <button (click)="loadUsers()">Load Users</button>
+  <div class="row">
+    <div class="col col-6">
+      <table class="table table-striped table-hover">
+        <tr>
+          <th>Id</th>
+          <th>Name</th>
+          <th>Username</th>
+          <th>Action</th>
+        </tr>
+        @for(el of data; track el) {
+        <tr>
+          <td>{{el.id}}</td>
+          <td>{{el.name}}</td>
+          <td>{{el.username}}</td>
+          <td>
+            <button class="btn btn-danger" type="button" (click)="loadPosts(el.id)">
+              Load Posts
+            </button>
+          </td>
+        </tr>
+        }
+      </table>
+    </div>
+    <div class="col-6">
+      <table class="table table-striped table-hover">
+        <tr>
+          <th>Id</th>
+          <th>Title</th>
+        </tr>
+        @for(el of posts; track el.id) {
+        <tr>
+          <td>{{el.id}}</td>
+          <td>{{el.title}}</td>
+        </tr>
+        }
+      </table>
+    </div>
+  </div>
+</div>
