@@ -1,0 +1,22 @@
+<cdev-container title="Courses" [hasMore]="response().hasMore" [currentPage]="service.currentPage()"
+    (onChangePage)="changePage($event)">
+    <div class="table-title">
+        <button mat-flat-button (click)="openForm()">
+            <mat-icon>add</mat-icon>
+            Add Course
+        </button>
+    </div>
+    <cdev-table [metaColumns]="metaColums" [dataSource]="response().data" class="table-data">
+        <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let element" style="text-align: right">
+                <button mat-icon-button (click)="openForm(element)">
+                    <mat-icon>edit</mat-icon>
+                </button>
+                <button mat-icon-button (click)="remove(element)">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </td>
+        </ng-container>
+    </cdev-table>
+</cdev-container>

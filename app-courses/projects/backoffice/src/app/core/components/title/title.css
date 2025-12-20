@@ -1,0 +1,13 @@
+.container {
+  background-color: #bdd0e8;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+h1 {
+  margin: 0;
+  padding: 0;
+}

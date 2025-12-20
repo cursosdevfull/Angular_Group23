@@ -1,0 +1,34 @@
+<div class="login">
+    <div class="login__container">
+        <div class="login__header">
+            <h1 class="login__title">Welcome to Courses</h1>
+            <p class="login__subtitle">Sign in to your account</p>
+        </div>
+
+        <form class="login__form">
+            <div class="login__field">
+                <mat-form-field appearance="outline" class="login__input login__input--full-width">
+                    <mat-label>Email</mat-label>
+                    <input matInput type="email" required placeholder="example@email.com" />
+                    <mat-icon matSuffix>email</mat-icon>
+                </mat-form-field>
+            </div>
+
+            <div class="login__field">
+                <mat-form-field appearance="outline" class="login__input login__input--full-width">
+                    <mat-label>Password</mat-label>
+                    <input matInput type="password" required placeholder="Your password" />
+                    <mat-icon matSuffix>lock</mat-icon>
+                </mat-form-field>
+            </div>
+
+            <div class="login__options">
+                <a href="#" class="login__link login__link--forgot">Forgot your password?</a>
+            </div>
+
+            <button type="button" matButton="filled" class="login__button login__button--primary" (click)="signIn()">
+                Sign In
+            </button>
+        </form>
+    </div>
+</div>

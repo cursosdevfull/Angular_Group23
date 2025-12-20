@@ -1,0 +1,12 @@
+<cdev-title [title]="title()">
+    <ng-content select=".table-title"></ng-content>
+</cdev-title>
+<mat-card>
+    <mat-card-content>
+        <perfect-scrollbar style="height: calc(100vh - 64px - 64px - 10px - 10px - 16px - 16px - 50px)">
+            <ng-content select=".table-data"></ng-content>
+        </perfect-scrollbar>
+        <cdev-navigation [hasMore]="hasMore()" [currentPage]="currentPage()"
+            (onChangePage)="changePage($event)"></cdev-navigation>
+    </mat-card-content>
+</mat-card>

@@ -1,0 +1,13 @@
+<mat-dialog-content>
+    <mat-toolbar class="dialog">{{title}}</mat-toolbar>
+    <form [formGroup]="fg">
+        <mat-form-field appearance="outline">
+            <mat-label>Title</mat-label>
+            <input matInput placeholder="Type the title" formControlName="title" required />
+        </mat-form-field>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions align="center">
+    <button mat-flat-button (click)="save()">Save</button>
+    <button mat-button (click)="cancel()">Cancel</button>
+</mat-dialog-actions>

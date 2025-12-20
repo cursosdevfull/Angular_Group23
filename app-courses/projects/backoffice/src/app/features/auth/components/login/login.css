@@ -1,0 +1,182 @@
+/* Block: login */
+.login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* Element: login__container */
+.login__container {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  padding: 40px;
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Element: login__header */
+.login__header {
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+/* Element: login__title */
+.login__title {
+  color: #333;
+  font-size: 28px;
+  font-weight: 600;
+  margin: 0 0 8px 0;
+  letter-spacing: -0.5px;
+}
+
+/* Element: login__subtitle */
+.login__subtitle {
+  color: #666;
+  font-size: 16px;
+  margin: 0;
+  font-weight: 400;
+}
+
+/* Element: login__form */
+.login__form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Element: login__field */
+.login__field {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Element: login__input */
+.login__input {
+  transition: all 0.3s ease;
+}
+
+/* Modifier: login__input--full-width */
+.login__input--full-width {
+  width: 100%;
+}
+
+/* Element: login__input hover state */
+.login__input:hover {
+  transform: translateY(-2px);
+}
+
+/* Element: login__options */
+.login__options {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 4px 0;
+}
+
+/* Element: login__checkbox */
+.login__checkbox {
+  /* Estilos adicionales si se necesitan */
+}
+
+/* Element: login__link */
+.login__link {
+  color: #667eea;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+/* Modifier: login__link--forgot */
+.login__link--forgot {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* Modifier: login__link--register */
+.login__link--register {
+  /* Estilos específicos para el enlace de registro si se necesitan */
+}
+
+/* Element: login__link hover states */
+.login__link:hover {
+  color: #5a67d8;
+  text-decoration: underline;
+}
+
+/* Element: login__button */
+.login__button {
+  width: 100%;
+  height: 48px;
+  font-size: 16px;
+  font-weight: 600;
+  margin-top: 8px;
+  border-radius: 8px;
+  text-transform: none;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+}
+
+/* Modifier: login__button--primary */
+.login__button--primary {
+  /* Estilos específicos para botón primario si se necesitan */
+}
+
+/* Element: login__button hover state */
+.login__button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+}
+
+/* Element: login__footer */
+.login__footer {
+  text-align: center;
+  margin-top: 8px;
+}
+
+/* Element: login__footer-text */
+.login__footer-text {
+  color: #666;
+  font-size: 14px;
+  margin: 0;
+}
+
+/* Responsive design */
+@media (max-width: 480px) {
+  .login {
+    padding: 16px;
+  }
+
+  .login__container {
+    padding: 32px 24px;
+  }
+
+  .login__title {
+    font-size: 24px;
+  }
+
+  .login__options {
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-start;
+  }
+}
+
+/* Material Design overrides */
+.mat-mdc-form-field {
+  transition: all 0.3s ease;
+}
+
+.mat-mdc-form-field:hover {
+  transform: translateY(-2px);
+}
+
+.mat-mdc-form-field.mat-focused .mat-mdc-form-field-outline {
+  border-color: #667eea;
+}

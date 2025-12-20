@@ -1,0 +1,13 @@
+.container-dialog {
+  width: 500px;
+}
+
+.container-dialog mat-dialog-content {
+  padding: 0 !important;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 10px 0 10px;
+}

@@ -1,0 +1,7 @@
+<mat-nav-list>
+    @for (link of links; track link) {
+    <mat-list-item>
+        <a matListItemTitle routerLink="{{link.path}}">{{ link.title }}</a>
+    </mat-list-item>
+    }
+</mat-nav-list>

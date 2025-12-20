@@ -1,0 +1,13 @@
+<ng-content></ng-content>
+<table mat-table [dataSource]="dataSource()">
+    @let metaCols = metaColumns();
+    @for(column of metaCols; track column){
+    <ng-container matColumnDef="{{column.field}}">
+        <th mat-header-cell *matHeaderCellDef>{{column.title}}</th>
+        <td mat-cell *matCellDef="let element"> {{element[column.field]}} </td>
+    </ng-container>
+    }
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns(); sticky: true"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns();" class="selectHover"></tr>
+</table>

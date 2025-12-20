@@ -1,0 +1,13 @@
+<mat-sidenav-container>
+  @if(layout().visibilityMenu){
+  <mat-sidenav opened="true" mode="side">
+    <cdev-menu></cdev-menu>
+  </mat-sidenav>
+  }
+  <mat-sidenav-content>
+    @if(layout().visibilityHeader){
+    <cdev-header></cdev-header>
+    }
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
