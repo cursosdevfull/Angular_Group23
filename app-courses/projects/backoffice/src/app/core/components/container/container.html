@@ -3,10 +3,10 @@
 </cdev-title>
 <mat-card>
     <mat-card-content>
+        <ng-content select=".filters"></ng-content>
         <perfect-scrollbar style="height: calc(100vh - 64px - 64px - 10px - 10px - 16px - 16px - 50px)">
             <ng-content select=".table-data"></ng-content>
         </perfect-scrollbar>
-        <cdev-navigation [hasMore]="hasMore()" [currentPage]="currentPage()"
-            (onChangePage)="changePage($event)"></cdev-navigation>
+        <ng-content select=".navigation"></ng-content>
     </mat-card-content>
 </mat-card>

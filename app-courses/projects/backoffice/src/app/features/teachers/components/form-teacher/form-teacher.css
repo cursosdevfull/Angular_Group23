@@ -1,0 +1,24 @@
+.form-row {
+  display: flex;
+  gap: 16px;
+}
+
+.form-row mat-form-field {
+  flex: 1;
+}
+
+mat-form-field {
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+mat-dialog-content {
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.dialog {
+  margin: -24px -24px 16px -24px;
+  color: white;
+  text-align: center;
+}

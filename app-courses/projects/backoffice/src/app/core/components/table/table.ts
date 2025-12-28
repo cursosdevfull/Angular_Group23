@@ -1,4 +1,4 @@
-import { Component, computed, contentChildren, effect, input, linkedSignal, viewChild } from '@angular/core';
+import { Component, contentChildren, effect, input, linkedSignal, viewChild } from '@angular/core';
 import { MatColumnDef, MatTable, MatTableModule } from '@angular/material/table';
 import { MetaColums } from '../../types/metacolum';
 

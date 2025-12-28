@@ -1,4 +1,4 @@
-import { Component, computed, inject } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { Layout } from '../../../../core/services/layout';
 import { Container } from '../../../../core/components/container/container';
 import { Table } from '../../../../core/components/table/table';
@@ -9,12 +9,12 @@ import { MatTableModule } from '@angular/material/table';
 import { CourseService } from '../../services/course.service';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { FormCourse } from '../form-course/form-course';
-import { Confirm } from '../../../../core/components/confirm/confirm';
 import { UtilService } from '../../../../core/services/util.service';
+import { Navigation } from '../../../../core/components/navigation/navigation';
 
 @Component({
   selector: 'cdev-page-courses',
-  imports: [Container, Table, MatButtonModule, MatIconModule, MatTableModule, MatDialogModule],
+  imports: [Container, Table, MatButtonModule, MatIconModule, MatTableModule, MatDialogModule, Navigation],
   templateUrl: './page-courses.html',
   styleUrl: './page-courses.css',
 })
@@ -23,6 +23,9 @@ export class PageCourses {
   service = inject(CourseService)
   dialog = inject(MatDialog);
   serviceUtil = inject(UtilService);
+
+  currentPage = signal<number>(1);
+  hasMore = signal<boolean>(false);
 
   metaColums: MetaColums = [
     { title: 'ID', field: 'id' },
@@ -40,6 +43,7 @@ export class PageCourses {
 
   changePage(page: number) {
     this.service.currentPage.set(page);
+    this.currentPage.set(page);
   }
 
   openForm(el = null) {
@@ -52,9 +56,11 @@ export class PageCourses {
     ref.afterClosed().subscribe(result => {
       if (result) {
         if (result.id) {
-          this.service.update(result.id, result.title);
+          this.service.updateCourse.set({ id: result.id, title: result.title });
+          this.serviceUtil.notify("Course updated successfully!");
         } else {
-          this.service.create(result.title);
+          this.service.createCourse.set({ title: result.title });
+          this.serviceUtil.notify("Course created successfully!");
         }
       }
     })
@@ -64,7 +70,8 @@ export class PageCourses {
     const result = await this.serviceUtil.confirm(`Are you sure you want to remove the course "${el.title}"?`)
 
     if (result) {
-      this.service.remove(el.id);
+      this.service.deleteCourse.set(el.id);
+      this.serviceUtil.notify("Course removed successfully!");
     }
   }
 }

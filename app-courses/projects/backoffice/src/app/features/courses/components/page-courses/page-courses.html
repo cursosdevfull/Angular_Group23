@@ -1,5 +1,4 @@
-<cdev-container title="Courses" [hasMore]="response().hasMore" [currentPage]="service.currentPage()"
-    (onChangePage)="changePage($event)">
+<cdev-container title="Courses">
     <div class="table-title">
         <button mat-flat-button (click)="openForm()">
             <mat-icon>add</mat-icon>
@@ -19,4 +18,6 @@
             </td>
         </ng-container>
     </cdev-table>
+    <cdev-navigation [hasMore]="response().hasMore" [currentPage]="currentPage()" (onChangePage)="changePage($event)"
+        class="navigation"></cdev-navigation>
 </cdev-container>

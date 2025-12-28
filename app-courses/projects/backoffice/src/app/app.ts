@@ -4,10 +4,11 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { Header } from './core/components/header/header';
 import { Layout } from './core/services/layout';
 import { Menu } from './core/components/menu/menu';
+import { Loader } from './core/components/loader/loader';
 
 @Component({
   selector: 'cdev-root',
-  imports: [RouterOutlet, MatSidenavModule, Header, Menu],
+  imports: [RouterOutlet, MatSidenavModule, Header, Menu, Loader],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
@@ -15,5 +16,5 @@ export class App {
   _layout = inject(Layout)
 
   layout = computed(() => this._layout.config);
-
+  loader = computed(() => this._layout.loader);
 }

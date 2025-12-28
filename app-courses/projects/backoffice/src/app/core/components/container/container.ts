@@ -4,7 +4,6 @@ import { Title } from '../title/title';
 import { PerfectScrollbarModule, PERFECT_SCROLLBAR_CONFIG, PerfectScrollbarConfigInterface } from 'ngx-om-perfect-scrollbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { Navigation } from '../navigation/navigation';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -12,7 +11,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 
 @Component({
   selector: 'cdev-container',
-  imports: [MatCardModule, Title, PerfectScrollbarModule, MatButtonModule, MatIconModule, Navigation],
+  imports: [MatCardModule, Title, PerfectScrollbarModule, MatButtonModule, MatIconModule],
   templateUrl: './container.html',
   styleUrl: './container.css',
   providers: [
@@ -24,12 +23,12 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 })
 export class Container {
   title = input<string>();
-  hasMore = input<boolean>(false);
-  currentPage = input<number>(1);
-  onChangePage = output<number>();
-
-  changePage(page: number) {
-    this.onChangePage.emit(page);
-  }
+  /*   hasMore = input<boolean>(false);
+    currentPage = input<number>(1);
+    onChangePage = output<number>();
+  
+    changePage(page: number) {
+      this.onChangePage.emit(page);
+    } */
 
 }

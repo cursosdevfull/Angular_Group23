@@ -1,1 +1,49 @@
-<cdev-container title="Schedules"></cdev-container>
+<cdev-container title="Schedules">
+    <div class="table-title">
+        <button mat-flat-button (click)="openForm()">
+            <mat-icon>add</mat-icon>
+            Add Schedule
+        </button>
+    </div>
+    <div class="filters">
+        <mat-form-field>
+            <mat-label>Filter by Course</mat-label>
+            <mat-select [(ngModel)]="courseSelected">
+                <mat-option value="">All Courses</mat-option>
+                @for(course of courses(); track course.id) {
+                <mat-option value="{{course.id}}">{{ course.title }}</mat-option>
+                }
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Filter by Teacher</mat-label>
+            <mat-select [(ngModel)]="teacherSelected">
+                <mat-option value="">All Teachers</mat-option>
+                @for(teacher of teachers(); track teacher.id) {
+                <mat-option [value]="teacher.id">{{ teacher.name }} {{ teacher.lastname }}</mat-option>
+                }
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <cdev-table [metaColumns]="metaColums" [dataSource]="response().data" class="table-data">
+        <ng-container matColumnDef="goals">
+            <th mat-header-cell *matHeaderCellDef>Goals</th>
+            <td mat-cell *matCellDef="let element">
+                <span class="goals-cell">{{formatGoals(element.goals)}}</span>
+            </td>
+        </ng-container>
+        <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let element" style="text-align: right">
+                <button mat-icon-button (click)="openForm(element)">
+                    <mat-icon>edit</mat-icon>
+                </button>
+                <button mat-icon-button (click)="remove(element)">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </td>
+        </ng-container>
+    </cdev-table>
+    <cdev-navigation [hasMore]="response().hasMore" [currentPage]="currentPage()" (onChangePage)="changePage($event)"
+        class="navigation"></cdev-navigation>
+</cdev-container>
