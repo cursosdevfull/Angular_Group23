@@ -19,7 +19,7 @@ export class SchedulesService {
     }
 
     async findAll(paginationDto: PaginationDto) {
-        const { page = 1, limit = 18 } = paginationDto;
+        const { page = 1, limit = 18, courseId = 0, teacherId = 0 } = paginationDto;
         const skip = (page - 1) * limit;
 
         // Obtener un elemento extra para verificar si hay más páginas
@@ -27,6 +27,10 @@ export class SchedulesService {
             skip,
             take: limit + 1,
             order: { id: 'ASC' },
+            where: {
+                ...(courseId ? { courseId } : {}),
+                ...(teacherId ? { teacherId } : {}),
+            },
             relations: ['course', 'teacher'],
         });
 

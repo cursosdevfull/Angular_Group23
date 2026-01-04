@@ -1,5 +1,5 @@
 import { Type } from "class-transformer";
-import { IsNotEmpty, IsNumber } from "class-validator";
+import { IsNotEmpty, IsNumber, IsOptional } from "class-validator";
 
 export class PaginationDto {
     @IsNotEmpty()
@@ -11,4 +11,14 @@ export class PaginationDto {
     @IsNumber()
     @Type(() => Number)
     limit?: number = 18;
+
+    @IsOptional()
+    @IsNumber()
+    @Type(() => Number)
+    courseId?: number;
+
+    @IsOptional()
+    @IsNumber()
+    @Type(() => Number)
+    teacherId?: number;
 }

@@ -6,3 +6,11 @@ mat-card {
 mat-card-title {
   padding: 10px;
 }
+
+.with-filters {
+  height: calc(100vh - 64px - 64px - 10px - 10px - 16px - 16px - 50px - 76px);
+}
+
+.without-filters {
+  height: calc(100vh - 64px - 64px - 10px - 10px - 16px - 16px - 50px);
+}

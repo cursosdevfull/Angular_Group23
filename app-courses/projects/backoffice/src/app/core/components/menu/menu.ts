@@ -27,6 +27,10 @@ export class Menu {
     {
       path: "/schedules",
       title: "Schedules"
+    },
+    {
+      path: "/users",
+      title: "Users"
     }
   ]
 }

@@ -16,17 +16,21 @@
             <mat-form-field appearance="outline">
                 <mat-label>Course</mat-label>
                 <mat-select formControlName="courseId" required>
-                    <mat-option *ngFor="let course of courses$ | async" [value]="course.id">
+                    @for(course of courses(); track course.id) {
+                    <mat-option [value]="course.id">
                         {{course.title}}
                     </mat-option>
+                    }
                 </mat-select>
             </mat-form-field>
             <mat-form-field appearance="outline">
                 <mat-label>Teacher</mat-label>
                 <mat-select formControlName="teacherId" required>
-                    <mat-option *ngFor="let teacher of teachers$ | async" [value]="teacher.id">
+                    @for(teacher of teachers(); track teacher.id) {
+                    <mat-option [value]="teacher.id">
                         {{teacher.name}} {{teacher.lastname}}
                     </mat-option>
+                    }
                 </mat-select>
             </mat-form-field>
         </div>
@@ -40,13 +44,13 @@
             <mat-form-field appearance="outline">
                 <mat-label>Start Date</mat-label>
                 <input matInput [matDatepicker]="picker" formControlName="start" required>
-                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-hint>DD/MM/YYYY</mat-hint>
                 <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
             </mat-form-field>
             <mat-form-field appearance="outline">
                 <mat-label>Duration</mat-label>
-                <input matInput placeholder="Duration in weeks/months" formControlName="duration" type="number" />
+                <input matInput placeholder="Duration in hours" formControlName="duration" type="number" />
             </mat-form-field>
         </div>
 
@@ -61,31 +65,35 @@
             </mat-form-field>
         </div>
 
-        <mat-form-field appearance="outline">
-            <mat-label>Resume</mat-label>
-            <textarea matInput placeholder="Type a brief description" formControlName="resume" rows="3"></textarea>
-        </mat-form-field>
+        <div class="form-row">
+            <mat-form-field appearance="outline">
+                <mat-label>Resume</mat-label>
+                <textarea matInput placeholder="Type a brief description" formControlName="resume" rows="3"></textarea>
+            </mat-form-field>
 
-        <mat-form-field appearance="outline">
-            <mat-label>Goals</mat-label>
-            <textarea matInput placeholder="Type goals separated by commas" formControlName="goals" required
-                rows="3"></textarea>
-            <mat-hint>Separate goals with commas (e.g., Learn Angular, Master TypeScript)</mat-hint>
-        </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Goals</mat-label>
+                <textarea matInput placeholder="Type goals separated by commas" formControlName="goals" required
+                    rows="3"></textarea>
+                <mat-hint>Separate goals with commas (e.g., Learn Angular, Master TypeScript)</mat-hint>
+            </mat-form-field>
+        </div>
 
-        <mat-form-field appearance="outline">
-            <mat-label>Syllabus</mat-label>
-            <textarea matInput placeholder="Type syllabus items separated by commas" formControlName="syllabus" required
-                rows="4"></textarea>
-            <mat-hint>Separate syllabus items with commas</mat-hint>
-        </mat-form-field>
+        <div class="form-row">
+            <mat-form-field appearance="outline">
+                <mat-label>Syllabus</mat-label>
+                <textarea matInput placeholder="Type syllabus items separated by commas" formControlName="syllabus"
+                    required rows="4"></textarea>
+                <mat-hint>Separate syllabus items with commas</mat-hint>
+            </mat-form-field>
 
-        <mat-form-field appearance="outline">
-            <mat-label>Requirements</mat-label>
-            <textarea matInput placeholder="Type requirements separated by commas" formControlName="requirements"
-                required rows="3"></textarea>
-            <mat-hint>Separate requirements with commas</mat-hint>
-        </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Requirements</mat-label>
+                <textarea matInput placeholder="Type requirements separated by commas" formControlName="requirements"
+                    required rows="3"></textarea>
+                <mat-hint>Separate requirements with commas</mat-hint>
+            </mat-form-field>
+        </div>
     </form>
 </mat-dialog-content>
 <mat-dialog-actions align="center">

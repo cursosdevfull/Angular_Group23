@@ -1,4 +1,4 @@
-import { Component, input, output } from '@angular/core';
+import { Component, ElementRef, inject, input, output, signal } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { Title } from '../title/title';
 import { PerfectScrollbarModule, PERFECT_SCROLLBAR_CONFIG, PerfectScrollbarConfigInterface } from 'ngx-om-perfect-scrollbar';
@@ -23,12 +23,14 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 })
 export class Container {
   title = input<string>();
-  /*   hasMore = input<boolean>(false);
-    currentPage = input<number>(1);
-    onChangePage = output<number>();
-  
-    changePage(page: number) {
-      this.onChangePage.emit(page);
-    } */
+  el = inject(ElementRef);
+
+  hasFilters = signal<boolean>(false)
+
+  ngAfterContentInit() {
+    const filters = this.el.nativeElement.querySelector('.filters');
+
+    this.hasFilters.set(!!filters);
+  }
 
 }

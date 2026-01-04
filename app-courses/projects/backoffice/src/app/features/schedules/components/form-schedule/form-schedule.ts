@@ -1,4 +1,4 @@
-import { Component, inject, ViewEncapsulation, OnInit } from '@angular/core';
+import { Component, inject, ViewEncapsulation } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
@@ -8,8 +8,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-import { ScheduleService, Schedule } from '../../services/schedule.service';
-import { Observable } from 'rxjs';
+import { ScheduleService } from '../../services/schedule.service';
+import { provideNativeDateAdapter } from '@angular/material/core';
 
 @Component({
     selector: 'cdev-form-schedule',
@@ -25,19 +25,21 @@ import { Observable } from 'rxjs';
         MatDatepickerModule,
         MatNativeDateModule
     ],
+    providers: [provideNativeDateAdapter()],
     templateUrl: './form-schedule.html',
     styleUrl: './form-schedule.css',
     encapsulation: ViewEncapsulation.None
 })
-export class FormSchedule implements OnInit {
+export class FormSchedule {
     dataInjected = inject(MAT_DIALOG_DATA)
     dialogRef = inject(MatDialogRef<FormSchedule>)
     scheduleService = inject(ScheduleService)
     title = this.dataInjected ? 'Edit Schedule' : 'New Schedule';
 
     fg: FormGroup
-    courses$: Observable<any[]> = this.scheduleService.getCourses();
-    teachers$: Observable<any[]> = this.scheduleService.getTeachers();
+
+    courses = this.scheduleService.listCourses
+    teachers = this.scheduleService.listTeachers
 
     constructor() {
         this.fg = new FormGroup({
@@ -56,10 +58,6 @@ export class FormSchedule implements OnInit {
             courseId: new FormControl(this.dataInjected?.courseId, Validators.required),
             teacherId: new FormControl(this.dataInjected?.teacherId, Validators.required),
         });
-    }
-
-    ngOnInit() {
-        // Load courses and teachers
     }
 
     save() {

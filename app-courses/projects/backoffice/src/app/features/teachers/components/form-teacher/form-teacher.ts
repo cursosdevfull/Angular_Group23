@@ -8,6 +8,11 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
 import { Teacher } from '../../services/teacher.service';
+import { PerfectScrollbarModule, PERFECT_SCROLLBAR_CONFIG, PerfectScrollbarConfigInterface } from 'ngx-om-perfect-scrollbar';
+
+const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
+    suppressScrollX: true
+};
 
 @Component({
     selector: 'cdev-form-teacher',
@@ -20,11 +25,18 @@ import { Teacher } from '../../services/teacher.service';
         MatToolbarModule,
         ReactiveFormsModule,
         MatChipsModule,
-        MatIconModule
+        MatIconModule,
+        PerfectScrollbarModule
     ],
     templateUrl: './form-teacher.html',
     styleUrl: './form-teacher.css',
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    providers: [
+        {
+            provide: PERFECT_SCROLLBAR_CONFIG,
+            useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
+        }
+    ]
 })
 export class FormTeacher {
     dataInjected = inject(MAT_DIALOG_DATA)

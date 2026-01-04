@@ -40,8 +40,8 @@ export class PageSchedules {
   currentPage = signal<number>(1);
   hasMore = signal<boolean>(false);
 
-  courseSelected = ""
-  teacherSelected = ""
+  courseSelected = 0
+  teacherSelected = 0
 
   metaColums: MetaColums = [
     { title: 'ID', field: 'id' },
@@ -84,9 +84,7 @@ export class PageSchedules {
     const ref = this.dialog.open(FormSchedule, {
       data: el,
       panelClass: 'container-dialog',
-      disableClose: true,
-      width: '800px',
-      maxHeight: '90vh'
+      disableClose: true
     })
 
     ref.afterClosed().subscribe(result => {
@@ -95,7 +93,9 @@ export class PageSchedules {
           this.service.updateSchedule.set(result);
           this.serviceUtil.notify("Schedule updated successfully!");
         } else {
-          this.service.createSchedule.set(result);
+          const data = Object.assign({}, result);
+          delete data.id;
+          this.service.createSchedule.set(data);
           this.serviceUtil.notify("Schedule created successfully!");
         }
       }
@@ -110,4 +110,5 @@ export class PageSchedules {
       this.serviceUtil.notify("Schedule removed successfully!");
     }
   }
+
 }

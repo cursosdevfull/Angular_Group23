@@ -23,8 +23,8 @@ mat-dialog-content {
 }
 
 .container-dialog {
-  width: 800px !important;
-  max-width: 800px !important;
+  width: 500px !important;
+  max-width: 500px !important;
 }
 
 .container-dialog mat-dialog-content {

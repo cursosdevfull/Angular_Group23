@@ -25,7 +25,7 @@ export class Schedule {
     @Column({ length: 100, nullable: true })
     frequency: string;
 
-    @Column({ type: 'timestamp' })
+    @Column({ type: 'datetime' })
     start: Date;
 
     @Column({ length: 100, nullable: true })

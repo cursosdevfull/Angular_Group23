@@ -29,8 +29,10 @@ export interface Schedule {
 export class ScheduleService {
     private _layout = inject(Layout)
     private http = inject(HttpClient);
-    private datePipe = new DatePipe('es-PE');
     private readonly pageSize = 18;
+
+    filterByTeacher = signal<number | null>(null);
+    filterByCourse = signal<number | null>(null);
 
     // Update Schedule
     updateSchedule = signal<Schedule | null>(null);
@@ -46,7 +48,9 @@ export class ScheduleService {
     scheduleUpdated = toSignal(this.obsUpdate, { initialValue: null });
     onUpdateSchedule(id: number, schedule: Schedule) {
         this._layout.loader = true;
-        return this.http.put(`${environment.apiUrl}/schedules/${id}`, schedule);
+        const data = Object.assign({}, schedule);
+        delete data.id;
+        return this.http.put(`${environment.apiUrl}/schedules/${id}`, data);
     }
 
     // Create Schedule
@@ -90,24 +94,25 @@ export class ScheduleService {
         toObservable(this.currentPage),
         toObservable(this.scheduleUpdated),
         toObservable(this.scheduleCreated),
-        toObservable(this.scheduleDeleted)
+        toObservable(this.scheduleDeleted),
+        toObservable(this.filterByCourse),
+        toObservable(this.filterByTeacher)
     )
         .pipe(
             switchMap(() => {
-                return this.loadSchedulesPage(this.currentPage());
+                return this.loadSchedulesPage(this.currentPage(), this.filterByCourse(), this.filterByTeacher());
             }),
             tap((result) => {
-                console.log('Schedules loaded:', result);
                 this._layout.loader = false
             })
         )
     listSchedules = toSignal(this.obs, { initialValue: { data: [], hasMore: false } });
 
-    private loadSchedulesPage(page: number): Observable<{ data: any[], hasMore: boolean }> {
+    private loadSchedulesPage(page: number, courseId: number | null, teacherId: number | null): Observable<{ data: any[], hasMore: boolean }> {
         this._layout.loader = true;
         return this.http
-            .get<{ data: any[], hasMore: boolean }>(`${environment.apiUrl}/schedules?page=${page}&limit=${this.pageSize}`)
-            .pipe(map(schedule => ({ ...schedule, data: schedule.data.map(sch => ({ ...sch, start: this.datePipe.transform(sch.start, "dd/MMM/yyyy"), course: `${sch.course.title}`, teacher: `${sch.teacher.name} ${sch.teacher.lastname}` })) })));
+            .get<{ data: any[], hasMore: boolean }>(`${environment.apiUrl}/schedules?page=${page}&limit=${this.pageSize}${courseId ? `&courseId=${courseId}` : ''}${teacherId ? `&teacherId=${teacherId}` : ''}`)
+            .pipe(map(schedule => ({ ...schedule, data: schedule.data.map(sch => ({ ...sch, start: sch.start, course: `${sch.course.title}`, teacher: `${sch.teacher.name} ${sch.teacher.lastname}` })) })));
     }
 
     courseSelected = signal<number | null>(1);

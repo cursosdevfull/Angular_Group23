@@ -9,6 +9,11 @@ import { TeachersModule } from './teachers/teachers.module';
 import { Teacher } from './teachers/entities/teacher.entity';
 import { SchedulesModule } from './schedules/schedules.module';
 import { Schedule } from './schedules/entities/schedule.entity';
+import { RolesModule } from './roles/roles.module';
+import { Role } from './roles/entities/role.entity';
+import { UsersModule } from './users/users.module';
+import { User } from './users/entities/user.entity';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -25,7 +30,7 @@ import { Schedule } from './schedules/entities/schedule.entity';
         username: configService.get('DATABASE_USERNAME'),
         password: configService.get('DATABASE_PASSWORD'),
         database: configService.get('DATABASE_NAME'),
-        entities: [Course, Teacher, Schedule],
+        entities: [Course, Teacher, Schedule, Role, User],
         synchronize: configService.get('DATABASE_SYNCHRONIZE') === 'true',
       }),
       inject: [ConfigService],
@@ -33,6 +38,9 @@ import { Schedule } from './schedules/entities/schedule.entity';
     CoursesModule,
     TeachersModule,
     SchedulesModule,
+    RolesModule,
+    UsersModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
