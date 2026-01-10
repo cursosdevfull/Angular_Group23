@@ -42,13 +42,7 @@ export class AuthService {
 
         return {
             accessToken,
-            refreshToken,
-            user: {
-                id: user.id,
-                name: user.name,
-                email: user.email,
-                roles: user.roles.map(role => role.name),
-            },
+            refreshToken
         };
     }
 

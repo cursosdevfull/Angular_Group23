@@ -6,8 +6,8 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 
 @Injectable({ providedIn: 'root' })
 export class UtilService {
-    dialog = inject(MatDialog);
-    notification = inject(MatSnackBar)
+    private dialog = inject(MatDialog);
+    private notification = inject(MatSnackBar)
 
     confirm(message: string): Promise<boolean> {
         const ref = this.dialog.open(Confirm);

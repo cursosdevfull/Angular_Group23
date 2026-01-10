@@ -5,11 +5,11 @@
             <p class="login__subtitle">Sign in to your account</p>
         </div>
 
-        <form class="login__form">
+        <form class="login__form" [formGroup]="fg">
             <div class="login__field">
                 <mat-form-field appearance="outline" class="login__input login__input--full-width">
                     <mat-label>Email</mat-label>
-                    <input matInput type="email" required placeholder="example@email.com" />
+                    <input matInput type="email" required placeholder="example@email.com" formControlName="email" />
                     <mat-icon matSuffix>email</mat-icon>
                 </mat-form-field>
             </div>
@@ -17,7 +17,7 @@
             <div class="login__field">
                 <mat-form-field appearance="outline" class="login__input login__input--full-width">
                     <mat-label>Password</mat-label>
-                    <input matInput type="password" required placeholder="Your password" />
+                    <input matInput type="password" required placeholder="Your password" formControlName="password" />
                     <mat-icon matSuffix>lock</mat-icon>
                 </mat-form-field>
             </div>
@@ -26,7 +26,8 @@
                 <a href="#" class="login__link login__link--forgot">Forgot your password?</a>
             </div>
 
-            <button type="button" matButton="filled" class="login__button login__button--primary" (click)="signIn()">
+            <button type="button" matButton="filled" class="login__button login__button--primary" (click)="signIn()"
+                [disabled]="fg.invalid">
                 Sign In
             </button>
         </form>
