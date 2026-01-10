@@ -7,6 +7,7 @@ import { authGuard } from './guards/auth-guard';
 import { authChild } from './guards/auth-child';
 import { DetailFake } from './detail-fake/detail-fake';
 import { toggleGuard } from './guards/toggle-guard';
+import { protectGuard } from './guards/protect-guard';
 
 export const routes: Routes = [
     {
@@ -32,7 +33,8 @@ export const routes: Routes = [
     },
     {
         path: "products",
-        component: List
+        component: List,
+        canDeactivate: [protectGuard]
     },
     {
         path: "**",
