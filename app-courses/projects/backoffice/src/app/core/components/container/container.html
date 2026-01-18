@@ -7,6 +7,9 @@
         <perfect-scrollbar [class.with-filters]="hasFilters()" [class.without-filters]="!hasFilters()">
             <ng-content select=".table-data"></ng-content>
         </perfect-scrollbar>
-        <ng-content select=".navigation"></ng-content>
+        <footer>
+            <ng-content select=".export"></ng-content>
+            <ng-content select=".navigation"></ng-content>
+        </footer>
     </mat-card-content>
 </mat-card>

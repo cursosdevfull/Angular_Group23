@@ -1,12 +1,13 @@
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
-import { inject, Injectable, signal, WritableSignal } from "@angular/core";
+import { inject, Injectable, Signal, signal, WritableSignal } from "@angular/core";
 import { toObservable, toSignal } from "@angular/core/rxjs-interop";
 import { switchMap } from "rxjs/internal/operators/switchMap";
 import { Layout } from "../../../core/services/layout";
 import { environment } from "../../../environment";
-import { catchError, finalize, of, tap } from "rxjs";
+import { of, tap } from "rxjs";
 import { TokenService } from "./token.service";
 import { Router } from "@angular/router";
+import * as jwt from 'jwt-decode';
 
 export type TTokens = { accessToken: string, refreshToken: string }
 export type TCredentials = { email: string, password: string }
@@ -44,6 +45,23 @@ export class AuthService {
         this.auth.set(null);
         this.tokenService.clear();
         this.router.navigate(['login']);
+    }
+
+    get isLogged(): Signal<boolean> {
+        return toSignal(
+            of(!!this.tokenService.retrieve('access_token')),
+            { initialValue: false }
+        );
+    }
+
+    get roles(): Signal<string[]> {
+        const token = this.tokenService.retrieve('access_token');
+        if (token) {
+            const decodedToken: any = jwt.jwtDecode(token);
+            const roles = decodedToken.roles || [];
+            return signal(roles);
+        }
+        return signal([]);
     }
 
 }

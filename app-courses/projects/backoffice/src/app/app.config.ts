@@ -9,6 +9,7 @@ import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { registerLocaleData } from '@angular/common';
 import localeEs from '@angular/common/locales/es';
 import { errorInterceptor } from './core/interceptors';
+import { tokenInterceptor } from './core/interceptors/token-interceptor';
 
 registerLocaleData(localeEs, 'es-PE'); // Use 'es-PE' as the ID
 
@@ -21,7 +22,7 @@ export const appConfig: ApplicationConfig = {
       player: () => player,
     }),
     provideHttpClient(withFetch(), withInterceptors([
-      errorInterceptor
+      errorInterceptor, tokenInterceptor
     ])),
     { provide: MAT_DATE_LOCALE, useValue: 'es-PE' }
   ]

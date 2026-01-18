@@ -14,3 +14,9 @@ mat-card-title {
 .without-filters {
   height: calc(100vh - 64px - 64px - 10px - 10px - 16px - 16px - 50px);
 }
+
+footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

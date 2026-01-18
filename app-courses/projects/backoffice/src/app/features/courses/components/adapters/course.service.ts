@@ -1,12 +1,13 @@
 import { inject, Injectable, signal } from "@angular/core";
 import { toObservable, toSignal } from "@angular/core/rxjs-interop";
 import { Observable, of, switchMap, merge, tap } from "rxjs";
-import { Layout } from "../../../core/services/layout";
+import { Layout } from "../../../../core/services/layout";
 import { HttpClient } from "@angular/common/http";
-import { environment } from "../../../environment";
+import { environment } from "../../../../environment";
+import { CoursePort } from "../ports/course.port";
 
 @Injectable({ providedIn: 'root' })
-export class CourseService {
+export class CourseService extends CoursePort {
     private _layout = inject(Layout)
     private http = inject(HttpClient);
     private readonly pageSize = 18;
@@ -77,10 +78,22 @@ export class CourseService {
             }),
             tap(() => this._layout.loader = false)
         )
+    listAllCourses = toSignal(this.loadCourses(), { initialValue: [] });
     listCourses = toSignal(this.obs, { initialValue: { data: [], hasMore: false } });
+
+    constructor() {
+        super()
+        this.loadCourses()
+    }
 
     private loadCoursesPage(page: number): Observable<{ data: any[], hasMore: boolean }> {
         this._layout.loader = true;
         return this.http.get<{ data: any[], hasMore: boolean }>(`${environment.apiUrl}/courses?page=${page}&limit=${this.pageSize}`)
     }
+
+    private loadCourses(): Observable<any[]> {
+        this._layout.loader = true;
+        return this.http.get<any[]>(`${environment.apiUrl}/courses/all`)
+    }
+
 }

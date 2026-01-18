@@ -18,6 +18,7 @@
             </td>
         </ng-container>
     </cdev-table>
+    <cdev-export class="export" [data]="allCourses()" [metadata]="metaColums"></cdev-export>
     <cdev-navigation [hasMore]="response().hasMore" [currentPage]="currentPage()" (onChangePage)="changePage($event)"
         class="navigation"></cdev-navigation>
 </cdev-container>

@@ -3,53 +3,66 @@ import {
     Get,
     Post,
     Body,
-    Patch,
     Param,
     Delete,
     Query,
     ParseIntPipe,
     Put,
+    UseGuards,
 } from '@nestjs/common';
-import { CoursesService } from './courses.service';
+import { CoursesService } from './adapters/courses.service';
 import { CreateCourseDto } from './dto/create-course.dto';
 import { UpdateCourseDto } from './dto/update-course.dto';
 import { PaginationDto } from './dto/pagination.dto';
+import { AuthenticationGuard } from '../auth/guards/authentication-guard';
+import { Permissions } from '../auth/decorators/permissions.decorator';
+import { AuthorizationGuard } from 'src/auth/guards/authorization-guard';
+import { CourseApplication } from './application/course.application';
 
 @Controller('courses')
 export class CoursesController {
-    constructor(private readonly coursesService: CoursesService) { }
+    constructor(private readonly app: CourseApplication) { }
 
     @Post()
-    async create(@Body() createCourseDto: CreateCourseDto) {
-        return await this.coursesService.create(createCourseDto);
+    @UseGuards(AuthenticationGuard, AuthorizationGuard)
+    @Permissions("admin", "teacher")
+    async create(
+        @Body() createCourseDto: CreateCourseDto,
+    ) {
+        return await this.app.create(createCourseDto);
     }
 
     @Get()
+    @UseGuards(AuthenticationGuard)
     async findAll(@Query() paginationDto: PaginationDto) {
-        return await this.coursesService.findAll(paginationDto);
+        return await this.app.findAll(paginationDto);
     }
 
     @Get('all')
+    @UseGuards(AuthenticationGuard)
     async findAllUnpaginated() {
-        return await this.coursesService.findAllUnpaginated();
+        return await this.app.findAllUnpaginated();
     }
 
     @Get(':id')
+    @UseGuards(AuthenticationGuard)
     async findOne(@Param('id', ParseIntPipe) id: number) {
-        return await this.coursesService.findOne(id);
+        return await this.app.findOne(id);
     }
 
     @Put(':id')
+    @UseGuards(AuthenticationGuard)
     async update(
         @Param('id', ParseIntPipe) id: number,
         @Body() updateCourseDto: UpdateCourseDto,
     ) {
-        return await this.coursesService.update(id, updateCourseDto);
+        return await this.app.update(id, updateCourseDto);
     }
 
     @Delete(':id')
+    @UseGuards(AuthenticationGuard)
     async remove(@Param('id', ParseIntPipe) id: number) {
-        await this.coursesService.remove(id);
+        await this.app.remove(id);
         return { message: 'Course deleted successfully' };
     }
 }

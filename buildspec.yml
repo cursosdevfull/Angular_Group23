@@ -1,0 +1,24 @@
+version: "0.2"
+phases:
+  install:
+    runtime-versions:
+      nodejs: 22
+  pre_build:
+    commands:
+      - echo "Installing dependencies"
+      - cd app-courses
+      - npm ci
+  build:
+    commands:
+      - echo "Starting compilation"
+      - npm run build --project backoffice --configuration=production
+  post_build:
+    commands:
+      - aws s3 rm s3://curso-angular23 --recursive
+      - aws s3 sync dist/backoffice/browser s3://curso-angular23 --delete
+      - aws cloudfront create-invalidation --distribution-id E2CSN3JGJ833W --paths "/*"
+artifacts:
+  name: "curso23"
+  files:
+    - "**/*"
+  base-directory: app-courses/dist/backoffice/browser

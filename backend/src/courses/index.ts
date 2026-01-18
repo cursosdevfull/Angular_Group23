@@ -1,5 +1,5 @@
 export { CoursesModule } from './courses.module';
-export { CoursesService } from './courses.service';
+export { CoursesService } from './adapters/courses.service';
 export { CoursesController } from './courses.controller';
 export { Course } from './entities/course.entity';
 export { CreateCourseDto } from './dto/create-course.dto';

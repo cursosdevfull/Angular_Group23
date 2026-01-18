@@ -6,21 +6,23 @@ import { MetaColums } from '../../../../core/types/metacolum';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
-import { CourseService } from '../../services/course.service';
+import { CourseService } from '../adapters/course.service';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { FormCourse } from '../form-course/form-course';
 import { UtilService } from '../../../../core/services/util.service';
 import { Navigation } from '../../../../core/components/navigation/navigation';
+import { Export } from '../../../../core/components/export/export';
+import { CourseApplication } from '../application/course.application';
 
 @Component({
   selector: 'cdev-page-courses',
-  imports: [Container, Table, MatButtonModule, MatIconModule, MatTableModule, MatDialogModule, Navigation],
+  imports: [Container, Table, MatButtonModule, MatIconModule, MatTableModule, MatDialogModule, Navigation, Export],
   templateUrl: './page-courses.html',
   styleUrl: './page-courses.css',
 })
 export class PageCourses {
   layout = inject(Layout);
-  service = inject(CourseService)
+  application = inject(CourseApplication)
   dialog = inject(MatDialog);
   serviceUtil = inject(UtilService);
 
@@ -32,7 +34,9 @@ export class PageCourses {
     { title: 'Título del curso', field: 'title' }
   ]
 
-  response = computed(() => this.service.listCourses())
+  response = computed(() => this.application.listCourses())
+
+  allCourses = computed(() => this.application.listAllCourses())
 
   constructor() {
     this.layout.config = {
@@ -42,7 +46,7 @@ export class PageCourses {
   }
 
   changePage(page: number) {
-    this.service.currentPage.set(page);
+    this.application.currentPage.set(page);
     this.currentPage.set(page);
   }
 
@@ -56,10 +60,10 @@ export class PageCourses {
     ref.afterClosed().subscribe(result => {
       if (result) {
         if (result.id) {
-          this.service.updateCourse.set({ id: result.id, title: result.title });
+          this.application.updateCourse.set({ id: result.id, title: result.title });
           this.serviceUtil.notify("Course updated successfully!");
         } else {
-          this.service.createCourse.set({ title: result.title });
+          this.application.createCourse.set({ title: result.title });
           this.serviceUtil.notify("Course created successfully!");
         }
       }
@@ -70,7 +74,7 @@ export class PageCourses {
     const result = await this.serviceUtil.confirm(`Are you sure you want to remove the course "${el.title}"?`)
 
     if (result) {
-      this.service.deleteCourse.set(el.id);
+      this.application.deleteCourse.set(el.id);
       this.serviceUtil.notify("Course removed successfully!");
     }
   }
