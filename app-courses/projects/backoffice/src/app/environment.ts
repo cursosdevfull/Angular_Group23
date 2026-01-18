@@ -1,3 +1,3 @@
 export const environment = {
-    apiUrl: 'https://big-phones-sniff.loca.lt',
+    apiUrl: 'https://mean-emus-marry.loca.lt',
 };
